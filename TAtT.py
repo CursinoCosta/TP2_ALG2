@@ -2,5 +2,6 @@
 import networkx as nx
 
 def TatT(G, c):
-    MST = nx.minimum_spanning_tree(G,algorithm='prim')
+    T = nx.minimum_spanning_tree(G, algorithm='prim')
+    return list(nx.dfs_preorder_nodes(T, source=0))
     
