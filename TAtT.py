@@ -1,7 +1,7 @@
 #Implementação do Twice Around the Tree
 import networkx as nx
 
-def Weight(caminho):
+def Weight(G,caminho):
   W = 0
   for i in range(len(caminho)-1):
     # print(f'{caminho[i]}-{caminho[i+1]}')
@@ -13,6 +13,6 @@ def TatT(G, r):
     H = list(nx.dfs_preorder_nodes(T, source=r))
     H.append(H[0])
 
-    W = Weight(H)
+    W = Weight(G,H)
     
     return H, W

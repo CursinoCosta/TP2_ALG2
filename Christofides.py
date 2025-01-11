@@ -32,7 +32,7 @@ def dfs(G, u, visited=None):
 
   return result
 
-def Weight(caminho):
+def Weight(G,caminho):
   W = 0
   for i in range(len(caminho)-1):
     # print(f'{caminho[i]}-{caminho[i+1]}')
@@ -75,7 +75,7 @@ def Christofides(G, r):
           visited.add(v)
   caminho.append(caminho[0])
 
-  W = Weight(caminho)
+  W = Weight(G, caminho)
 
   return caminho, W
 
