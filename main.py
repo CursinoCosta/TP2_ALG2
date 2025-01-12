@@ -60,13 +60,14 @@ def Graph(file_path):
     
     return G , size, name
 
-(G,size,name) = Graph('ALL_tsp/berlin52.tsp')
-init = time.time()
-bnb = BnB.BnB(G,size,1)
-t_bnb = time.time()
+(G,size,name) = Graph('ALL_tsp/d493.tsp')
+#init = time.time()
+#bnb = BnB.BnB(G,size,1)
+#t_bnb = time.time()
 tatt = TAtT.TatT(G,1)
-t_tatt = time.time()
-Chris = Christofides.Christofides(G,1)
-t_Chris = time.time()
+print(tatt)
+#t_tatt = time.time()
+#Chris = Christofides.Christofides(G,1)
+#t_Chris = time.time()
 
-print(bnb[1],' time bnb :',t_bnb,'\n',tatt[1],' time tatt :',t_tatt,'\n',Chris[1],' time Chris :',t_Chris,'\n')
+#print(bnb[1],' time bnb :',t_bnb,'\n',tatt[1],' time tatt :',t_tatt,'\n',Chris[1],' time Chris :',t_Chris,'\n')
