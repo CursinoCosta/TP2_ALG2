@@ -70,14 +70,14 @@ def BnB(G, n, r):
   hq.heapify(queue)
   while(queue):
     no = hq.heappop(queue)
-    print(len(queue),no)
+    #print(len(queue),no)
     #no = queue.pop()
     if(np.isin(4,no[3]) and not np.isin(3,no[3])): continue
     if(no[0] < -(n-1)):
       if(best_bound > no[2]):
-        print('busca')
+        #print('busca')
         best_bound = no[2]
-        print('newbest ',best_bound)
+        #print('newbest ',best_bound)
         sol = no[3]
     elif(no[1] < best_bound):
       if(no[0] > -(n-1)):
@@ -90,7 +90,7 @@ def BnB(G, n, r):
             hq.heappush(queue,(no[0]-1,new_bound,no[2]+pesoNoK,no[3]+[k]))
             #queue.insert(0,(new_bound,no[2]+pesoNoK,no[0]+1,no[3]+[k]))
       elif(G[no[3][-1]][r]['weight'] != np.inf and len(no[3]) == G.number_of_nodes() and no[1] < best_bound):
-        print('add')
+        #print('add')
         hq.heappush(queue,(no[0]-1,no[1],no[2]+G[no[3][-1]][r]['weight'],no[3]+[0]))
         #queue.insert(0,(no[1],no[2]+G[no[3][-1]][r]['weight'],no[0]+1,no[3]+[0]))
   return sol,best_bound
