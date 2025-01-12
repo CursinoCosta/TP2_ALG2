@@ -1,31 +1,49 @@
 import math
 import networkx as nx
+import Christofides
+import TAtT
+import BnB
+import time
 
 def Graph(file_path):
     with open(file_path, 'r') as file:
         lines = file.readlines()
     
     nodes = []
-    
+    nodeinfo = False
     for line in lines:
         line = line.strip()
+        parts = line.split()
+        
 
-        if line == "DIMENSION":
-            parts = line.split()
-            size = parts[1]
+        if parts[0] == "NAME":
+            name = parts[2]  
             continue
 
-        if line == "NODE_COORD_SECTION":
-            parts = line.split()
+        if parts[0] == "NAME:":
+            name = parts[1]  
+            continue
+
+        if parts[0] == "DIMENSION":
+            size = int(parts[2])
+            continue
+
+        if parts[0] == "DIMENSION:":
+            size = int(parts[1])
+            continue
+
+        if parts[0] == "NODE_COORD_SECTION":
+            nodeinfo = True
+            continue
+
+        if parts[0] == "EOF":
+            break
+        
+        if nodeinfo:
             node_id = int(parts[0])
             x = float(parts[1])
             y = float(parts[2])
             nodes.append((node_id, x, y))
-            continue
-        
-        if line == "EOF":
-            break
-        
         
     G = nx.Graph()
     
@@ -40,5 +58,15 @@ def Graph(file_path):
             distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
             G.add_edge(id1, id2, weight=distance)
     
-    return G
+    return G , size, name
 
+(G,size,name) = Graph('ALL_tsp/berlin52.tsp')
+init = time.time()
+bnb = BnB.BnB(G,size,1)
+t_bnb = time.time()
+tatt = TAtT.TatT(G,1)
+t_tatt = time.time()
+Chris = Christofides.Christofides(G,1)
+t_Chris = time.time()
+
+print(bnb[1],' time bnb :',t_bnb,'\n',tatt[1],' time tatt :',t_tatt,'\n',Chris[1],' time Chris :',t_Chris,'\n')
