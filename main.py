@@ -61,13 +61,18 @@ def Graph(file_path):
     return G , size, name
 
 (G,size,name) = Graph('ALL_tsp/d493.tsp')
-#init = time.time()
-#bnb = BnB.BnB(G,size,1)
+init = time.time()
+bnb = BnB.BnB(G,size,1)
+print(bnb)
 #t_bnb = time.time()
-tatt = TAtT.TatT(G,1)
-print(tatt)
+# tatt = TAtT.TatT(G,1)
+# print(tatt)
 #t_tatt = time.time()
-#Chris = Christofides.Christofides(G,1)
-#t_Chris = time.time()
+# Chris = Christofides.Christofides(G,1)
+# t_Chris = time.time()
+# print(Chris)
+# print(t_Chris)
+
+print(f'tempo: {time.time() - init:.2f}')
 
 #print(bnb[1],' time bnb :',t_bnb,'\n',tatt[1],' time tatt :',t_tatt,'\n',Chris[1],' time Chris :',t_Chris,'\n')
