@@ -60,10 +60,10 @@ def Graph(file_path):
     
     return G , size, name
 
-# (G,size,name) = Graph('ALL_tsp/d493.tsp')
+#(G,size,name) = Graph('ALL_tsp/berlin52.tsp')
 # init = time.time()
-# bnb = BnB.BnB(G,size,1)
-# print(bnb)
+#bnb = BnB.BnB(G,size,1)
+#print(bnb)
 #t_bnb = time.time()
 # tatt = TAtT.TatT(G,1)
 # print(tatt)
