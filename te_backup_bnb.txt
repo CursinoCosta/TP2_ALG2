@@ -43,27 +43,31 @@ def BnB(G, n, r):
   queue = [raiz]
   hq.heapify(queue)
   while(queue):
-    (old_lvl, old_bound, old_cost, old_path) = hq.heappop(queue)
-
-    if(np.isin(4,old_path) and not np.isin(3,old_path)): continue
-
-    if(old_bound < best_bound):
-      new_lvl = old_lvl - 1
-      for i in filter(lambda x: x not in old_path,list(range(1,n+1))):
-        new_path = old_path.copy() + [i]
-        new_cost = old_cost + G[old_path[-1]][i]['weight']
-
-        if(new_lvl == -(n-1)):
-          new_cost += G[i][1]['weight']
-          if(best_bound > new_cost):
-            best_bound = new_cost
-            sol = new_path
-
-        else:
-          new_bound = bound(G,new_path)
-          if(new_bound<best_bound):
-            hq.heappush(queue,(new_lvl,new_bound,new_cost,new_path))
-            
+    no = hq.heappop(queue)
+    #print(len(queue),best_bound,no)
+    #print(len(queue),no)
+    #no = queue.pop()
+    if(np.isin(4,no[3]) and not np.isin(3,no[3])): continue
+    if(no[0] < -(n-1)):
+      if(best_bound > no[2]):
+        #print('busca')
+        best_bound = no[2]
+        #print('newbest ',best_bound)
+        sol = no[3]
+    elif(no[1] < best_bound):
+      if(no[0] > -(n-1)):
+        for k in range(1,n+1):
+          isin = np.isin(k,no[3])
+          if(isin): continue
+          new_bound = bound(G,no[3]+[k])        
+          pesoNoK = G[no[3][-1]][k]['weight']
+          if(not isin and pesoNoK != np.inf and new_bound < best_bound):
+            hq.heappush(queue,(no[0]-1,new_bound,no[2]+pesoNoK,no[3]+[k]))
+            #queue.insert(0,(new_bound,no[2]+pesoNoK,no[0]+1,no[3]+[k]))
+      elif(G[no[3][-1]][r]['weight'] != np.inf and len(no[3]) == G.number_of_nodes() and no[1] < best_bound):
+        #print('add')
+        hq.heappush(queue,(no[0]-1,no[1],no[2]+G[no[3][-1]][r]['weight'],no[3]+[0]))
+        #queue.insert(0,(no[1],no[2]+G[no[3][-1]][r]['weight'],no[0]+1,no[3]+[0]))
   return sol,best_bound
             
   
